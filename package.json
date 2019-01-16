@@ -4,10 +4,14 @@
   "description": "Guacamole common js as an NPM module",
   "main": "guacamole.js",
   "types": "guacamole.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Elucidia/guacamole-client/tree/dev/guacamole-common-js"
+  },
   "scripts": {
     "build": "node build"
   },
-  "author": "",
+  "author": "JPG <jp.gagnon@elucidia.com>",
   "license": "MIT",
   "files": [
     "LICENSE",
@@ -17,10 +21,5 @@
   ],
   "keywords": [
     "guacamole"
-  ],
-  "author": "JPG <jp.gagnon@elucidia.com>",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/Elucidia/guacamole-common-js/issues"
-  },"homepage": "https://github.com/Elucidia/guacamole-common-js"
+  ]
 }
