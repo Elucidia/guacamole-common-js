@@ -1,4 +1,4 @@
-declare module 'guacamole-common-js-elucidia' {
+declare module '@elucidia/guacamole-common-js' {
 
 
     /**
