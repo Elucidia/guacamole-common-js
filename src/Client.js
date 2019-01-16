@@ -669,7 +669,35 @@ Guacamole.Client = function(tunnel) {
      * @param {String} mimetype The mimetype of the file received.
      * @param {String} filename The name of the file received.
      */
-    this.onfile = null;
+    this.onfile = function(stream, mimetype, filename){
+        if(typeof(Blob)!='undefined') { // using Blob, all browser should support that... just adding in case!
+            
+            // Reader to get the blob from the stream (PDF content)
+            var reader = new Guacamole.BlobReader(stream, mimetype);
+
+            // The stream is finished, we can get the blob from the BlobReader and download it!
+            reader.onend = function() {
+                var blob = new Blob([reader.getBlob()], {type: mimetype});
+
+                var fileURL = window.URL.createObjectURL(blob);
+                // Warning, you'll need to enable the "popup" in your browser for this functionnality to work
+                var newWindow = window.open(fileURL, filename);           
+                // Message to warn the user if if hasn't enable the popup
+                if(!newWindow || newWindow.closed || typeof newWindow.closed=='undefined') 
+                { 
+                    alert("You need to enable the popup from this website to be able to print");
+                } else {
+                    newWindow.print();
+                }
+            };
+
+            // TODO JPG Maybe add something while the stream is going on.. investigate with big file if worthwhile, leaving "comment" for the moment
+            reader.onprogress = function() {
+                 var something = 'Stream in progress';
+            };
+
+        }
+    }
 
     /**
      * Fired when a filesystem object is created. The object provided to this
@@ -1112,6 +1140,8 @@ Guacamole.Client = function(tunnel) {
             // Create stream 
             if (guac_client.onfile) {
                 var stream = streams[stream_index] = new Guacamole.InputStream(guac_client, stream_index);
+                // Sending aknowlegement so guacd start the stream
+                guac_client.sendAck(stream_index, "OK", 0x0000);
                 guac_client.onfile(stream, mimetype, filename);
             }
 

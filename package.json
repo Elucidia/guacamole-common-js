@@ -1,5 +1,5 @@
 {
-  "name": "@illgrenoble/guacamole-common-js",
+  "name": "guacamole-common-js-elucidia",
   "version": "0.0.1",
   "description": "Guacamole common js as an NPM module",
   "main": "guacamole.js",
@@ -18,9 +18,10 @@
   "keywords": [
     "guacamole"
   ],
-  "author": "Jamie Hall <hall@ill.eu>",
+  "author": "JPG <jp.gagnon@elucidia.com>",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/ILLGrenoble/guacamole-common-js/issues"
-  },"homepage": "https://github.com/ILLGrenoble/guacamole-common-js"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Elucidia/guacamole-common-js.git"
+  }
 }
