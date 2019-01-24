@@ -657,7 +657,29 @@ Guacamole.Client = function(tunnel) {
      *                                       clipboard data from the server.
      * @param {String} mimetype The mimetype of the data which will be received.
      */
-    this.onclipboard = null;
+    this.onclipboard2 = function(stream, mimetype){
+        var reader;
+        if (/^text\//.exec(mimetype)) {
+            reader = new Guacamole.StringReader(stream);
+            var text = "";
+            reader.ontext = function(val) {
+                text += val;
+            };
+            reader.onend = function() {
+                var clipboardTextContainer = document.querySelector("#clipboardTextContainer");
+                clipboardTextContainer.value = text;                
+        
+                if (navigator.clipboard && navigator.clipboard.writeText){
+                    try {
+                        navigator.clipboard.writeText(text)
+                            .then(() => {
+                                clipboardTextContainer.value = "";
+                            });
+                    } catch (err) {}
+                }
+            }
+        }
+    };
 
     /**
      * Fired when a file stream is created. The stream provided to this event
@@ -967,9 +989,9 @@ Guacamole.Client = function(tunnel) {
             var mimetype = parameters[1];
 
             // Create stream 
-            if (guac_client.onclipboard) {
+            if (guac_client.onclipboard2) {
                 var stream = streams[stream_index] = new Guacamole.InputStream(guac_client, stream_index);
-                guac_client.onclipboard(stream, mimetype);
+                guac_client.onclipboard2(stream, mimetype);
             }
 
             // Otherwise, unsupported
