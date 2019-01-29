@@ -657,7 +657,7 @@ Guacamole.Client = function(tunnel) {
      *                                       clipboard data from the server.
      * @param {String} mimetype The mimetype of the data which will be received.
      */
-    this.onclipboard2 = function(stream, mimetype){
+    this.onCustomClipboard = function(stream, mimetype){
         var reader;
         if (/^text\//.exec(mimetype)) {
             reader = new Guacamole.StringReader(stream);
@@ -989,9 +989,9 @@ Guacamole.Client = function(tunnel) {
             var mimetype = parameters[1];
 
             // Create stream 
-            if (guac_client.onclipboard2) {
+            if (guac_client.onCustomClipboard) {
                 var stream = streams[stream_index] = new Guacamole.InputStream(guac_client, stream_index);
-                guac_client.onclipboard2(stream, mimetype);
+                guac_client.onCustomClipboard(stream, mimetype);
             }
 
             // Otherwise, unsupported
