@@ -1,6 +1,6 @@
 {
   "name": "@elucidia/guacamole-common-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Guacamole common js as an NPM module",
   "main": "guacamole.js",
   "types": "guacamole.d.ts",
